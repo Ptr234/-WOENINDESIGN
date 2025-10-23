@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Render-optimized configuration for full-stack Next.js
+  // Docker-optimized configuration for full-stack Next.js
+  output: 'standalone', // Enable standalone output for Docker
   typescript: {
     // Warning: This allows production builds to successfully complete even if
     // your project has type errors.
