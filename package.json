@@ -16,7 +16,7 @@
     "db:migrate": "npx tsx src/scripts/migrate-database.ts",
     "db:seed": "npx tsx src/scripts/seed-database.ts",
     "db:reset": "npx tsx src/scripts/reset-database.ts",
-    "postbuild": "npx tsx src/scripts/setup-database.ts"
+    "postbuild": "npx tsx src/scripts/setup-database.ts || echo 'Database setup skipped during build'"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
