@@ -68,9 +68,20 @@ export default function PublicSuppliersPage() {
       
       if (data.success) {
         setSuppliers(data.data);
+      } else {
+        // Fallback to static data if API fails
+        const { staticSuppliers } = await import('../../../../lib/staticData');
+        setSuppliers(staticSuppliers);
       }
     } catch (error) {
       console.error('Failed to fetch suppliers:', error);
+      // Fallback to static data on error
+      try {
+        const { staticSuppliers } = await import('../../../../lib/staticData');
+        setSuppliers(staticSuppliers);
+      } catch (fallbackError) {
+        console.error('Failed to load fallback data:', fallbackError);
+      }
     } finally {
       setLoading(false);
     }

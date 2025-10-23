@@ -64,9 +64,20 @@ export default function PublicDesignersPage() {
       
       if (data.success) {
         setDesigners(data.data);
+      } else {
+        // Fallback to static data if API fails
+        const { staticDesigners } = await import('../../../../lib/staticData');
+        setDesigners(staticDesigners);
       }
     } catch (error) {
       console.error('Failed to fetch designers:', error);
+      // Fallback to static data on error
+      try {
+        const { staticDesigners } = await import('../../../../lib/staticData');
+        setDesigners(staticDesigners);
+      } catch (fallbackError) {
+        console.error('Failed to load fallback data:', fallbackError);
+      }
     } finally {
       setLoading(false);
     }

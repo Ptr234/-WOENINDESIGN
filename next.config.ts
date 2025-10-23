@@ -1,28 +1,61 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Fix workspace root warning by setting output file tracing root
-  outputFileTracingRoot: "/home/peter/backend",
-  
-  eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
-  },
+  // Render-optimized configuration for full-stack Next.js
   typescript: {
     // Warning: This allows production builds to successfully complete even if
     // your project has type errors.
     ignoreBuildErrors: true, // Temporarily disable for build success
   },
   
-  // Modern bundling configuration
-  turbopack: {
-    rules: {
-      '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.js',
+  // Image optimization for Render hosting
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**',
       },
-    },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'firebasestorage.googleapis.com',
+        pathname: '/**',
+      }
+    ],
+    formats: ['image/webp', 'image/avif'],
+  },
+  
+  // Security headers for production
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'origin-when-cross-origin',
+          },
+        ],
+      },
+    ];
+  },
+  
+  // Performance optimizations
+  experimental: {
+    optimizeCss: true,
   },
 };
 
