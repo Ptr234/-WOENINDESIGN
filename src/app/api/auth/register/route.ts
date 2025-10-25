@@ -68,9 +68,9 @@ export async function POST(request: NextRequest) {
 
     // Create user
     const userResult = await query(
-      `INSERT INTO users (email, password_hash, role, first_name, last_name, phone)
+      `INSERT INTO users (email, password_hash, role, first_name, last_name, phone_number)
        VALUES ($1, $2, $3, $4, $5, $6)
-       RETURNING id, email, role, first_name, last_name, phone, created_at, updated_at`,
+       RETURNING id, email, role, first_name, last_name, phone_number, created_at, updated_at`,
       [email.toLowerCase(), hashedPassword, role, firstName, lastName, phone]
     );
 
@@ -79,15 +79,15 @@ export async function POST(request: NextRequest) {
     // Create role-specific profile if needed
     if (role === 'designer') {
       await query(
-        `INSERT INTO designer_profiles (id, specialty, years_of_experience, biography, location)
-         VALUES ($1, $2, $3, $4, $5)`,
-        [user.id, [], 0, '', '']
+        `INSERT INTO designer_profiles (user_id, specialty, experience_years, location)
+         VALUES ($1, $2, $3, $4)`,
+        [user.id, 'General Design', 0, 'Uganda']
       );
     } else if (role === 'supplier') {
       await query(
-        `INSERT INTO supplier_profiles (id, business_name, business_description, category, location, business_phone, business_email, address)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-        [user.id, '', '', [], '', phone || '', email.toLowerCase(), '']
+        `INSERT INTO supplier_profiles (id, business_name, business_description, category, location)
+         VALUES ($1, $2, $3, $4, $5)`,
+        [user.id, 'New Business', '', ['General'], 'Uganda']
       );
     }
 
@@ -107,7 +107,7 @@ export async function POST(request: NextRequest) {
       role: user.role,
       firstName: user.first_name,
       lastName: user.last_name,
-      phone: user.phone,
+      phone: user.phone_number,
       createdAt: user.created_at,
       updatedAt: user.updated_at,
     };

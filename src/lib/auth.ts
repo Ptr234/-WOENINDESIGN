@@ -77,7 +77,7 @@ export class AuthService {
 
       // Use enhanced database service with caching
       const result = await DatabaseService.query(
-        'SELECT id, email, role, first_name, last_name, phone, profile_picture, is_verified, is_active, created_at, updated_at FROM users WHERE id = $1 AND is_active = true',
+        'SELECT id, email, role, first_name, last_name, phone_number, profile_picture, is_verified, is_active, created_at, updated_at FROM users WHERE id = $1 AND is_active = true',
         [payload.userId],
         {
           cache: {
@@ -104,7 +104,7 @@ export class AuthService {
         role: user.role,
         firstName: user.first_name,
         lastName: user.last_name,
-        phone: user.phone,
+        phone: user.phone_number,
         profilePicture: user.profile_picture,
         createdAt: user.created_at,
         updatedAt: user.updated_at,
@@ -137,7 +137,7 @@ export class AuthService {
       const sanitizedEmail = sanitizeEmail(email);
       
       const result = await DatabaseService.query(
-        'SELECT id, email, password_hash, role, first_name, last_name, phone, profile_picture, is_verified, is_active, created_at, updated_at, last_login_at FROM users WHERE email = $1 AND is_active = true',
+        'SELECT id, email, password_hash, role, first_name, last_name, phone_number, profile_picture, is_verified, is_active, created_at, updated_at, last_login FROM users WHERE email = $1 AND is_active = true',
         [sanitizedEmail],
         {
           monitoring: {
@@ -162,7 +162,7 @@ export class AuthService {
 
       // Update last login timestamp
       await DatabaseService.query(
-        'UPDATE users SET last_login_at = NOW() WHERE id = $1',
+        'UPDATE users SET last_login = NOW() WHERE id = $1',
         [user.id],
         {
           monitoring: {
@@ -178,7 +178,7 @@ export class AuthService {
         role: user.role,
         firstName: user.first_name,
         lastName: user.last_name,
-        phone: user.phone,
+        phone: user.phone_number,
         profilePicture: user.profile_picture,
         createdAt: user.created_at,
         updatedAt: user.updated_at,
