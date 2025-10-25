@@ -58,4 +58,9 @@ services:
       - key: EMAIL_SERVER_PASSWORD
         value: your-gmail-app-password
       - key: ADMIN_EMAIL
-        value: admin@woenindesign.com
+        value: admin@woenindesign.community
+      - key: NEXT_PUBLIC_APP_URL
+        fromService:
+          type: web
+          name: woenindesign-app
+          property: host
