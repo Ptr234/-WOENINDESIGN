@@ -166,10 +166,10 @@ export default function LandingPage() {
           }}>
             CONTACT US
           </span>
-          <a href="#" style={{ color: '#556b2f', fontSize: '14px' }}>📘</a>
-          <a href="#" style={{ color: '#556b2f', fontSize: '14px' }}>📷</a>
-          <a href="#" style={{ color: '#556b2f', fontSize: '14px' }}>🐦</a>
-          <a href="#" style={{ color: '#556b2f', fontSize: '14px' }}>📺</a>
+          <a href="#" style={{ color: '#556b2f', fontSize: '14px', textDecoration: 'none' }} title="Facebook">📘</a>
+          <a href="https://www.instagram.com/womenindesignug" target="_blank" rel="noopener noreferrer" style={{ color: '#556b2f', fontSize: '14px', textDecoration: 'none' }} title="Instagram">📷</a>
+          <a href="#" style={{ color: '#556b2f', fontSize: '14px', textDecoration: 'none' }} title="Twitter">🐦</a>
+          <a href="https://www.tiktok.com/@womenindesignug?_t=ZM-90qV76PMgsS&_r=1" target="_blank" rel="noopener noreferrer" style={{ color: '#556b2f', fontSize: '14px', textDecoration: 'none' }} title="TikTok">📺</a>
         </div>
       </div>
 
@@ -1409,6 +1409,198 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* Footer with Social Media */}
+      <footer style={{ 
+        background: 'linear-gradient(135deg, #2d4016, #556b2f)', 
+        padding: '60px 5% 40px', 
+        color: 'white' 
+      }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
+            gap: '40px',
+            marginBottom: '40px'
+          }}>
+            {/* Company Info */}
+            <div>
+              <h3 style={{ fontSize: '24px', marginBottom: '20px', color: '#90ee90' }}>
+                Women in Design Uganda
+              </h3>
+              <p style={{ color: 'rgba(255, 255, 255, 0.8)', lineHeight: 1.6, marginBottom: '25px' }}>
+                Empowering women designers and connecting them with clients and suppliers across Uganda for creative collaboration and business growth.
+              </p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'rgba(255, 255, 255, 0.9)' }}>
+                <MapPin size={16} />
+                <span>Kampala, Uganda</span>
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h4 style={{ fontSize: '18px', marginBottom: '20px', color: '#90ee90' }}>
+                Quick Links
+              </h4>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                <li style={{ marginBottom: '12px' }}>
+                  <Link href="/landing/designers" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', transition: 'color 0.2s' }}>
+                    Find Designers
+                  </Link>
+                </li>
+                <li style={{ marginBottom: '12px' }}>
+                  <Link href="/landing/suppliers" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', transition: 'color 0.2s' }}>
+                    Browse Suppliers
+                  </Link>
+                </li>
+                <li style={{ marginBottom: '12px' }}>
+                  <Link href="/landing/about" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', transition: 'color 0.2s' }}>
+                    About Us
+                  </Link>
+                </li>
+                <li style={{ marginBottom: '12px' }}>
+                  <Link href="/auth/register" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', transition: 'color 0.2s' }}>
+                    Join Platform
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Contact & Social Media */}
+            <div>
+              <h4 style={{ fontSize: '18px', marginBottom: '20px', color: '#90ee90' }}>
+                Connect With Us
+              </h4>
+              <div style={{ marginBottom: '25px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px', color: 'rgba(255, 255, 255, 0.9)' }}>
+                  <Phone size={16} />
+                  <span>+256 700 123 456</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'rgba(255, 255, 255, 0.9)' }}>
+                  <Globe size={16} />
+                  <span>info@womenindesignuganda.com</span>
+                </div>
+              </div>
+              
+              <div>
+                <h5 style={{ fontSize: '16px', marginBottom: '15px', color: '#90ee90' }}>
+                  Follow Us
+                </h5>
+                <div style={{ display: 'flex', gap: '15px' }}>
+                  <a 
+                    href="https://www.instagram.com/womenindesignug" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ 
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '45px',
+                      height: '45px',
+                      background: 'rgba(255, 255, 255, 0.1)',
+                      borderRadius: '10px',
+                      textDecoration: 'none',
+                      transition: 'all 0.3s',
+                      border: '1px solid rgba(255, 255, 255, 0.2)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }}
+                    title="Follow us on Instagram"
+                  >
+                    <span style={{ fontSize: '20px' }}>📷</span>
+                  </a>
+                  <a 
+                    href="https://www.tiktok.com/@womenindesignug?_t=ZM-90qV76PMgsS&_r=1" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ 
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '45px',
+                      height: '45px',
+                      background: 'rgba(255, 255, 255, 0.1)',
+                      borderRadius: '10px',
+                      textDecoration: 'none',
+                      transition: 'all 0.3s',
+                      border: '1px solid rgba(255, 255, 255, 0.2)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }}
+                    title="Follow us on TikTok"
+                  >
+                    <span style={{ fontSize: '20px' }}>🎵</span>
+                  </a>
+                  <a 
+                    href="#" 
+                    style={{ 
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '45px',
+                      height: '45px',
+                      background: 'rgba(255, 255, 255, 0.1)',
+                      borderRadius: '10px',
+                      textDecoration: 'none',
+                      transition: 'all 0.3s',
+                      border: '1px solid rgba(255, 255, 255, 0.2)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }}
+                    title="Follow us on Facebook"
+                  >
+                    <span style={{ fontSize: '20px' }}>📘</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Footer */}
+          <div style={{ 
+            borderTop: '1px solid rgba(255, 255, 255, 0.2)', 
+            paddingTop: '30px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '20px'
+          }}>
+            <div style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '14px' }}>
+              © 2024 Women in Design Uganda Ltd. All rights reserved.
+            </div>
+            <div style={{ display: 'flex', gap: '20px', fontSize: '14px' }}>
+              <Link href="#" style={{ color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                Privacy Policy
+              </Link>
+              <Link href="#" style={{ color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                Terms of Service
+              </Link>
+              <Link href="#" style={{ color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'none' }}>
+                Support
+              </Link>
+            </div>
+          </div>
+        </div>
+      </footer>
 
         {/* Additional decorative elements */}
         <div style={{
