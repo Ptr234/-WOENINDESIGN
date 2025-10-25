@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/database/connection';
 import { createSecureResponse } from '@/lib/security/headers';
 import { rateLimitMiddleware } from '@/lib/security/rate-limit';
+import { fallbackDesigners } from '../../../../../lib/fallbackData';
 
 export async function GET(request: NextRequest) {
   const rateLimitResult = await rateLimitMiddleware(request, 'public', 20, 15 * 60 * 1000);
@@ -58,6 +59,11 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error fetching featured designers:', error);
-    return createSecureResponse({ error: 'Internal server error' }, 500);
+    // Return fallback data when database is unavailable
+    return createSecureResponse({
+      success: true,
+      data: fallbackDesigners,
+      fallback: true
+    });
   }
 }

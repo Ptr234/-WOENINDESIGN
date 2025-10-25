@@ -1710,7 +1710,8 @@ export default function LandingPage() {
       </footer>
       </main>
 
-        {/* Additional decorative elements */}
+      {/* Additional decorative elements */}
+      <div>
         <div style={{
           position: 'fixed',
           top: '10%',
@@ -1747,6 +1748,7 @@ export default function LandingPage() {
           animation: 'float 7s ease-in-out infinite',
           zIndex: 1
         }}></div>
+      </div>
     </ErrorBoundary>
   );
 }
