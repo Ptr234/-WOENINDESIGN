@@ -35,6 +35,7 @@ export default function LandingPage() {
   const [featuredDesigners, setFeaturedDesigners] = useState<FeaturedDesigner[]>([]);
   const [featuredSuppliers, setFeaturedSuppliers] = useState<FeaturedSupplier[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const router = useRouter();
