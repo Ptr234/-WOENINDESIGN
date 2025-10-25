@@ -12,7 +12,7 @@ const registerSchema = z.object({
   role: z.enum(['designer', 'client', 'supplier'], {
     errorMap: () => ({ message: 'Role must be designer, client, or supplier' }),
   }),
-  phone: z.string().optional(),
+  phoneNumber: z.string().optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { email, password, firstName, lastName, role, phone } = validation.data;
+    const { email, password, firstName, lastName, role, phoneNumber } = validation.data;
 
     // Additional password validation
     const passwordValidation = AuthService.isValidPassword(password);
@@ -68,10 +68,10 @@ export async function POST(request: NextRequest) {
 
     // Create user
     const userResult = await query(
-      `INSERT INTO users (email, password_hash, role, first_name, last_name, phone)
+      `INSERT INTO users (email, password_hash, role, first_name, last_name, phone_number)
        VALUES ($1, $2, $3, $4, $5, $6)
-       RETURNING id, email, role, first_name, last_name, phone, created_at, updated_at`,
-      [email.toLowerCase(), hashedPassword, role, firstName, lastName, phone]
+       RETURNING id, email, role, first_name, last_name, phone_number, created_at, updated_at`,
+      [email.toLowerCase(), hashedPassword, role, firstName, lastName, phoneNumber]
     );
 
     const user = userResult.rows[0];
@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
       await query(
         `INSERT INTO supplier_profiles (id, business_name, business_description, category, location, business_phone, business_email, address)
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-        [user.id, '', '', [], '', phone || '', email.toLowerCase(), '']
+        [user.id, '', '', [], '', phoneNumber || '', email.toLowerCase(), '']
       );
     }
 
@@ -107,7 +107,7 @@ export async function POST(request: NextRequest) {
       role: user.role,
       firstName: user.first_name,
       lastName: user.last_name,
-      phone: user.phone,
+      phone: user.phone_number,
       createdAt: user.created_at,
       updatedAt: user.updated_at,
     };
