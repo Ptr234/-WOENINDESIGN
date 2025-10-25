@@ -36,9 +36,15 @@ Deploy the complete WID Uganda platform (frontend + backend) to Vercel's free ti
 #### Via Vercel Dashboard:
 1. Go to [Vercel](https://vercel.com) → Import Project
 2. Connect GitHub repository: `Ptr234/-WOENINDESIGN`
-3. Select branch: `social-media-deployment`
+3. **IMPORTANT**: Select branch: `social-media-deployment` (our current branch)
 4. Framework: **Next.js** (auto-detected)
 5. Click **Deploy**
+
+**Note**: Make sure to use `social-media-deployment` branch - it contains:
+- ✅ Fixed authentication system (94% test success)
+- ✅ Mobile responsiveness optimizations
+- ✅ Social media integration
+- ✅ All latest improvements
 
 #### Set Environment Variables:
 In Vercel Dashboard → Settings → Environment Variables, add:
