@@ -1,0 +1,600 @@
+/* WID Uganda Platform - Advanced Mobile Responsiveness */
+
+/* ==========================================
+   MOBILE-FIRST RESPONSIVE FOUNDATION
+   ========================================== */
+
+/* Base Mobile Styles (320px and up) */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px; /* Prevent iOS zoom on input focus */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ==========================================
+   MOBILE CONTAINER SYSTEM
+   ========================================== */
+
+.mobile-container {
+  width: 100%;
+  max-width: 100vw;
+  padding: 0 16px;
+  margin: 0 auto;
+}
+
+@media (min-width: 480px) {
+  .mobile-container {
+    padding: 0 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-container {
+    padding: 0 32px;
+    max-width: 1200px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-container {
+    padding: 0 40px;
+  }
+}
+
+/* ==========================================
+   MOBILE-FIRST TYPOGRAPHY
+   ========================================== */
+
+.mobile-heading-1 {
+  font-size: 1.75rem; /* 28px */
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 1rem 0;
+}
+
+.mobile-heading-2 {
+  font-size: 1.5rem; /* 24px */
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 0.75rem 0;
+}
+
+.mobile-heading-3 {
+  font-size: 1.25rem; /* 20px */
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0 0 0.5rem 0;
+}
+
+.mobile-body {
+  font-size: 1rem; /* 16px */
+  line-height: 1.6;
+  margin: 0 0 1rem 0;
+}
+
+.mobile-small {
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.5;
+}
+
+/* Tablet and Desktop Enhancements */
+@media (min-width: 768px) {
+  .mobile-heading-1 {
+    font-size: 2.25rem; /* 36px */
+  }
+  
+  .mobile-heading-2 {
+    font-size: 1.875rem; /* 30px */
+  }
+  
+  .mobile-heading-3 {
+    font-size: 1.5rem; /* 24px */
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-heading-1 {
+    font-size: 2.5rem; /* 40px */
+  }
+  
+  .mobile-heading-2 {
+    font-size: 2rem; /* 32px */
+  }
+}
+
+/* ==========================================
+   TOUCH-FRIENDLY INTERFACE ELEMENTS
+   ========================================== */
+
+/* Touch Target Guidelines (iOS: 44px, Android: 48px, Accessible: 44px minimum) */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation; /* Improves touch responsiveness */
+  -webkit-tap-highlight-color: transparent; /* Remove blue highlight on iOS */
+}
+
+/* Enhanced Button System */
+.mobile-btn {
+  min-height: 48px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  touch-action: manipulation;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.mobile-btn:active {
+  transform: scale(0.98);
+}
+
+.mobile-btn-primary {
+  background: linear-gradient(135deg, #90ee90, #7bcf7b);
+  color: white;
+  box-shadow: 0 4px 12px rgba(144, 238, 144, 0.3);
+}
+
+.mobile-btn-primary:hover {
+  box-shadow: 0 6px 16px rgba(144, 238, 144, 0.4);
+  transform: translateY(-1px);
+}
+
+.mobile-btn-secondary {
+  background: rgba(85, 107, 47, 0.1);
+  color: #556b2f;
+  border: 2px solid #556b2f;
+}
+
+.mobile-btn-secondary:hover {
+  background: #556b2f;
+  color: white;
+}
+
+/* ==========================================
+   MOBILE GRID SYSTEM
+   ========================================== */
+
+.mobile-grid {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Single column on mobile */
+.mobile-grid-1 {
+  grid-template-columns: 1fr;
+}
+
+/* Responsive grid classes */
+.mobile-grid-responsive {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 480px) {
+  .mobile-grid-responsive {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-grid-responsive {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-grid-responsive {
+    gap: 32px;
+  }
+}
+
+/* ==========================================
+   MOBILE CARD COMPONENTS
+   ========================================== */
+
+.mobile-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.mobile-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-card-header {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mobile-card-content {
+  margin-bottom: 16px;
+}
+
+.mobile-card-footer {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================
+   MOBILE IMAGE OPTIMIZATION
+   ========================================== */
+
+.mobile-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  display: block;
+}
+
+.mobile-image-hero {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+@media (min-width: 768px) {
+  .mobile-image-hero {
+    height: 400px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-image-hero {
+    height: 500px;
+  }
+}
+
+.mobile-image-card {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.mobile-image-profile {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #90ee90;
+}
+
+/* ==========================================
+   MOBILE NAVIGATION SYSTEM
+   ========================================== */
+
+.mobile-nav-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.mobile-nav-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  z-index: 1000;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 8px 0;
+  padding-bottom: calc(8px + env(safe-area-inset-bottom));
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #666;
+  transition: color 0.2s ease;
+  min-height: 44px;
+  justify-content: center;
+}
+
+.mobile-nav-item.active {
+  color: #556b2f;
+}
+
+.mobile-nav-item:hover {
+  color: #90ee90;
+}
+
+.mobile-nav-label {
+  font-size: 10px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* ==========================================
+   MOBILE FORM ELEMENTS
+   ========================================== */
+
+.mobile-form-group {
+  margin-bottom: 20px;
+}
+
+.mobile-label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+.mobile-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 16px;
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 16px; /* Prevent iOS zoom */
+  background: white;
+  transition: border-color 0.2s ease;
+}
+
+.mobile-input:focus {
+  outline: none;
+  border-color: #90ee90;
+  box-shadow: 0 0 0 3px rgba(144, 238, 144, 0.1);
+}
+
+.mobile-textarea {
+  min-height: 120px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.mobile-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 12px center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+/* ==========================================
+   MOBILE SPACING SYSTEM
+   ========================================== */
+
+.mobile-section {
+  padding: 60px 0;
+}
+
+@media (min-width: 768px) {
+  .mobile-section {
+    padding: 80px 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-section {
+    padding: 100px 0;
+  }
+}
+
+.mobile-gap-sm { gap: 8px; }
+.mobile-gap-md { gap: 16px; }
+.mobile-gap-lg { gap: 24px; }
+.mobile-gap-xl { gap: 32px; }
+
+.mobile-mb-sm { margin-bottom: 8px; }
+.mobile-mb-md { margin-bottom: 16px; }
+.mobile-mb-lg { margin-bottom: 24px; }
+.mobile-mb-xl { margin-bottom: 32px; }
+
+/* ==========================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   ========================================== */
+
+/* Optimize scrolling performance */
+.mobile-scroll-smooth {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Optimize animations for mobile */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* GPU acceleration for smooth animations */
+.mobile-gpu-accelerated {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* ==========================================
+   MOBILE SAFE AREAS (iPhone X+)
+   ========================================== */
+
+.mobile-safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.mobile-safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.mobile-safe-left {
+  padding-left: env(safe-area-inset-left);
+}
+
+.mobile-safe-right {
+  padding-right: env(safe-area-inset-right);
+}
+
+/* ==========================================
+   MOBILE UTILITY CLASSES
+   ========================================== */
+
+.mobile-hidden {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .mobile-hidden {
+    display: block;
+  }
+  
+  .tablet-hidden {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .desktop-hidden {
+    display: none;
+  }
+}
+
+.mobile-text-center {
+  text-align: center;
+}
+
+.mobile-w-full {
+  width: 100%;
+}
+
+.mobile-h-full {
+  height: 100%;
+}
+
+.mobile-flex {
+  display: flex;
+}
+
+.mobile-flex-col {
+  flex-direction: column;
+}
+
+.mobile-flex-row {
+  flex-direction: row;
+}
+
+.mobile-items-center {
+  align-items: center;
+}
+
+.mobile-justify-center {
+  justify-content: center;
+}
+
+.mobile-justify-between {
+  justify-content: space-between;
+}
+
+/* ==========================================
+   MOBILE-SPECIFIC ANIMATIONS
+   ========================================== */
+
+@keyframes mobile-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobile-slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.mobile-animate-fade-in {
+  animation: mobile-fade-in 0.6s ease-out;
+}
+
+.mobile-animate-slide-up {
+  animation: mobile-slide-up 0.4s ease-out;
+}
+
+/* ==========================================
+   MOBILE ACCESSIBILITY ENHANCEMENTS
+   ========================================== */
+
+/* Focus indicators for keyboard navigation */
+.mobile-focus-visible:focus-visible {
+  outline: 2px solid #90ee90;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .mobile-card {
+    border: 2px solid #000;
+  }
+  
+  .mobile-btn {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .mobile-card {
+    background: #1a1a1a;
+    color: white;
+    border-color: #333;
+  }
+  
+  .mobile-input {
+    background: #2a2a2a;
+    border-color: #444;
+    color: white;
+  }
+}
