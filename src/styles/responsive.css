@@ -1,0 +1,226 @@
+/* Mobile-first responsive design for WID Uganda Platform */
+
+/* Base mobile styles (320px and up) */
+.container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 16px;
+  margin: 0 auto;
+}
+
+/* Typography optimizations for mobile */
+body {
+  font-size: 16px; /* Prevents zoom on iOS */
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Touch-friendly button sizes */
+.btn, button {
+  min-height: 44px; /* iOS Human Interface Guidelines */
+  min-width: 44px;
+  padding: 12px 16px;
+  font-size: 16px; /* Prevents zoom on iOS */
+  border-radius: 8px;
+  touch-action: manipulation; /* Improves touch responsiveness */
+}
+
+/* Form inputs optimization */
+input, textarea, select {
+  font-size: 16px; /* Prevents zoom on iOS Safari */
+  min-height: 44px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+/* Mobile navigation spacing */
+.mobile-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  z-index: 50;
+}
+
+.mobile-nav-item {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 12px;
+  padding: 8px 4px;
+}
+
+/* Grid system for mobile */
+.grid-mobile {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* Card optimizations for mobile */
+.card {
+  border-radius: 12px;
+  padding: 16px;
+  margin: 8px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Image responsiveness */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Tablet: 768px to 1024px */
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding: 0 24px;
+  }
+  
+  .grid-mobile {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  .mobile-nav {
+    display: none; /* Hide mobile nav on tablet+ */
+  }
+  
+  .card {
+    padding: 24px;
+    margin: 16px 0;
+  }
+}
+
+/* Desktop: 1024px and up */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1200px;
+    padding: 0 32px;
+  }
+  
+  .grid-mobile {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  
+  .card {
+    padding: 32px;
+    margin: 24px 0;
+  }
+}
+
+/* Large desktop: 1440px and up */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
+    padding: 0 48px;
+  }
+  
+  .grid-mobile {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Cross-browser compatibility fixes */
+
+/* iOS Safari fixes */
+@supports (-webkit-appearance: none) {
+  input[type="search"] {
+    -webkit-appearance: none;
+  }
+  
+  .btn {
+    -webkit-appearance: none;
+    -webkit-border-radius: 8px;
+  }
+}
+
+/* Android Chrome fixes */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .btn {
+    background-clip: padding-box;
+  }
+}
+
+/* Firefox mobile fixes */
+@-moz-document url-prefix() {
+  .btn {
+    -moz-border-radius: 8px;
+  }
+}
+
+/* Touch and hover states */
+@media (hover: hover) {
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+@media (hover: none) {
+  .btn:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn {
+    border: 2px solid currentColor;
+  }
+  
+  .card {
+    border: 1px solid currentColor;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .mobile-nav {
+    background: #1f2937;
+    border-top-color: #374151;
+  }
+  
+  .card {
+    background: #1f2937;
+    color: #f9fafb;
+  }
+}
+
+/* Performance optimizations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Battery saving mode */
+.battery-saving * {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Reduce motion for accessibility */
+.reduce-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}

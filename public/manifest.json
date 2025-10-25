@@ -1,0 +1,126 @@
+{
+  "name": "WID Uganda Platform",
+  "short_name": "WID Uganda",
+  "description": "Women in Design Uganda - Connecting designers, suppliers, and clients across Uganda",
+  "start_url": "/landing",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7c3aed",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "categories": [
+    "productivity",
+    "business",
+    "social"
+  ],
+  "icons": [
+    {
+      "src": "/logo.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/logo.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.webp",
+      "sizes": "144x144",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.webp",
+      "sizes": "96x96",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.webp",
+      "sizes": "72x72",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.webp",
+      "sizes": "48x48",
+      "type": "image/webp",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "WID Uganda mobile interface"
+    },
+    {
+      "src": "/screenshot-desktop.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "WID Uganda desktop interface"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "Access your dashboard",
+      "url": "/dashboard",
+      "icons": [
+        {
+          "src": "/logo.webp",
+          "sizes": "96x96",
+          "type": "image/webp"
+        }
+      ]
+    },
+    {
+      "name": "Find Designers",
+      "short_name": "Designers",
+      "description": "Browse designers",
+      "url": "/designers",
+      "icons": [
+        {
+          "src": "/logo.webp",
+          "sizes": "96x96",
+          "type": "image/webp"
+        }
+      ]
+    },
+    {
+      "name": "Find Suppliers",
+      "short_name": "Suppliers",
+      "description": "Browse suppliers",
+      "url": "/suppliers",
+      "icons": [
+        {
+          "src": "/logo.webp",
+          "sizes": "96x96",
+          "type": "image/webp"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "mailto",
+      "url": "/contact?email=%s"
+    }
+  ],
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  }
+}
