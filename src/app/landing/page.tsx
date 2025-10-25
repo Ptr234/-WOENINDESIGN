@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, Star, Users, Building, Heart, CheckCircle, Quote, ChevronRight, Eye, Phone, Globe, Clock, MapPin, LayoutDashboard } from 'lucide-react';
+import MobileNavbar from '@/components/navigation/MobileNavbar';
 
 interface FeaturedDesigner {
   id: string;
@@ -125,6 +126,7 @@ export default function LandingPage() {
 
   return (
     <>
+      <MobileNavbar title="WID Uganda" user={user} />
       <style jsx>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
@@ -367,7 +369,7 @@ export default function LandingPage() {
           top: 0, 
           width: '65%', 
           height: '100%', 
-          background: `linear-gradient(rgba(45, 64, 22, 0.7), rgba(112, 130, 56, 0.7)), url("https://images.unsplash.com/photo-1600607687644-c7171b42498b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80")`,
+          background: `linear-gradient(rgba(45, 64, 22, 0.7), rgba(112, 130, 56, 0.7)), url("/images/1000579811.jpg")`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           opacity: 0.8 
@@ -428,8 +430,8 @@ export default function LandingPage() {
           
           <div style={{ position: 'relative' }}>
             <img 
-              src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
-              alt="Women designers collaborating on creative projects"
+              src="/images/WOMEN.jpeg"
+              alt="Women in Design Uganda - Empowering women designers across Uganda"
               style={{
                 width: '100%',
                 height: '400px',
@@ -650,8 +652,8 @@ export default function LandingPage() {
           
           <div style={{ position: 'relative' }}>
             <img 
-              src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
-              alt="Interior Design Workspace"
+              src="/images/1000579811.jpg"
+              alt="Professional women designers at work - Interior Design Workspace"
               style={{ 
                 width: '100%', 
                 height: '400px',
@@ -690,6 +692,169 @@ export default function LandingPage() {
                 <span>15+ Cities Coverage</span>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Women in Design Gallery Section */}
+      <section style={{ padding: '100px 5%', background: 'white' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+            <span style={{ 
+              background: 'linear-gradient(135deg, #90ee90, #7bcf7b)', 
+              color: 'white', 
+              padding: '8px 22px', 
+              borderRadius: '20px', 
+              display: 'inline-block', 
+              fontSize: '11px', 
+              fontWeight: 'bold', 
+              marginBottom: '25px', 
+              textTransform: 'uppercase', 
+              letterSpacing: '1px' 
+            }}>
+              Our Community
+            </span>
+            <h2 style={{ fontSize: '42px', color: '#8b4f9f', marginBottom: '20px' }}>
+              Women in Design Uganda
+            </h2>
+            <p style={{ color: '#666', maxWidth: '650px', margin: '0 auto', lineHeight: 1.8, fontSize: '15px' }}>
+              Celebrating talented women designers and empowering them to showcase their creativity and build successful businesses.
+            </p>
+          </div>
+
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
+            gap: '30px',
+            marginBottom: '40px'
+          }}>
+            {/* Main Hero Image */}
+            <div style={{ 
+              gridColumn: 'span 2',
+              position: 'relative',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              boxShadow: '0 15px 40px rgba(0,0,0,0.1)'
+            }}>
+              <img 
+                src="/images/WOMEN.jpeg"
+                alt="Women in Design Uganda - Empowering creative women across Uganda"
+                style={{
+                  width: '100%',
+                  height: '400px',
+                  objectFit: 'cover'
+                }}
+              />
+              <div style={{
+                position: 'absolute',
+                bottom: '30px',
+                left: '30px',
+                background: 'rgba(255, 255, 255, 0.95)',
+                padding: '20px 25px',
+                borderRadius: '15px',
+                backdropFilter: 'blur(10px)'
+              }}>
+                <h3 style={{ color: '#2d4016', fontWeight: 'bold', marginBottom: '8px', fontSize: '18px' }}>
+                  Women in Design Uganda
+                </h3>
+                <p style={{ color: '#666', fontSize: '14px', margin: 0 }}>
+                  Empowering women designers across Uganda
+                </p>
+              </div>
+            </div>
+
+            {/* Design Work Showcase 1 */}
+            <div style={{ 
+              position: 'relative',
+              borderRadius: '15px',
+              overflow: 'hidden',
+              boxShadow: '0 10px 30px rgba(0,0,0,0.1)'
+            }}>
+              <img 
+                src="/images/1000579811.jpg"
+                alt="Professional women designers at work - Creative workspace"
+                style={{
+                  width: '100%',
+                  height: '300px',
+                  objectFit: 'cover'
+                }}
+              />
+              <div style={{
+                position: 'absolute',
+                bottom: '20px',
+                left: '20px',
+                right: '20px',
+                background: 'rgba(144, 238, 144, 0.9)',
+                color: 'white',
+                padding: '15px',
+                borderRadius: '10px',
+                textAlign: 'center'
+              }}>
+                <h4 style={{ margin: 0, fontWeight: 'bold', fontSize: '14px' }}>
+                  Creative Workspace
+                </h4>
+                <p style={{ margin: '5px 0 0', fontSize: '12px', opacity: 0.9 }}>
+                  Professional design environment
+                </p>
+              </div>
+            </div>
+
+            {/* Design Work Showcase 2 */}
+            <div style={{ 
+              position: 'relative',
+              borderRadius: '15px',
+              overflow: 'hidden',
+              boxShadow: '0 10px 30px rgba(0,0,0,0.1)'
+            }}>
+              <img 
+                src="/images/1000579832.jpg"
+                alt="Interior design services by talented women designers"
+                style={{
+                  width: '100%',
+                  height: '300px',
+                  objectFit: 'cover'
+                }}
+              />
+              <div style={{
+                position: 'absolute',
+                bottom: '20px',
+                left: '20px',
+                right: '20px',
+                background: 'rgba(85, 107, 47, 0.9)',
+                color: 'white',
+                padding: '15px',
+                borderRadius: '10px',
+                textAlign: 'center'
+              }}>
+                <h4 style={{ margin: 0, fontWeight: 'bold', fontSize: '14px' }}>
+                  Interior Design Excellence
+                </h4>
+                <p style={{ margin: '5px 0 0', fontSize: '12px', opacity: 0.9 }}>
+                  Beautiful interior transformations
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ textAlign: 'center' }}>
+            <Link href="/auth/register">
+              <button style={{ 
+                background: 'linear-gradient(135deg, #556b2f, #2d4016)', 
+                color: 'white', 
+                padding: '16px 40px', 
+                border: 'none', 
+                borderRadius: '10px', 
+                cursor: 'pointer', 
+                fontWeight: 'bold', 
+                fontSize: '16px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '10px',
+                boxShadow: '0 8px 25px rgba(85, 107, 47, 0.3)'
+              }}>
+                Join Our Community <ArrowRight size={18} />
+              </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -813,8 +978,8 @@ export default function LandingPage() {
             }}
           >
             <img 
-              src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
-              alt="Beautiful Interior Design"
+              src="/images/1000579832.jpg"
+              alt="Women in Design - Beautiful Interior Design Services"
               style={{ 
                 width: '100%', 
                 height: '280px',
