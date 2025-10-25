@@ -210,7 +210,7 @@ export default function LandingPage() {
           50% { opacity: 1; }
         }
       `}</style>
-      <div style={{ fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", color: '#333', overflowX: 'hidden' }}>
+      <main id="main-content" style={{ fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", color: '#333', overflowX: 'hidden' }}>
       {/* Top Bar */}
       <div style={{ 
         background: 'linear-gradient(135deg, #f5f5dc, #e8e8e8)', 
@@ -1708,6 +1708,7 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
+      </main>
 
         {/* Additional decorative elements */}
         <div style={{
@@ -1746,7 +1747,6 @@ export default function LandingPage() {
           animation: 'float 7s ease-in-out infinite',
           zIndex: 1
         }}></div>
-      </main>
     </ErrorBoundary>
   );
 }
