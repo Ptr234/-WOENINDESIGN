@@ -6,6 +6,9 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, Star, Users, Building, Heart, CheckCircle, Quote, ChevronRight, Eye, Phone, Globe, Clock, MapPin, LayoutDashboard } from 'lucide-react';
 import MobileNavbar from '@/components/navigation/MobileNavbar';
+import ErrorBoundary from '@/components/ui/ErrorBoundary';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import { fallbackDesigners, fallbackSuppliers } from '../../../lib/fallbackData';
 
 interface FeaturedDesigner {
   id: string;
@@ -92,21 +95,63 @@ export default function LandingPage() {
 
   const fetchFeaturedContent = async () => {
     try {
-      // Fetch featured designers
-      const designersResponse = await fetch('/api/public/featured-designers');
-      const designersData = await designersResponse.json();
-      if (designersData.success) {
-        setFeaturedDesigners(designersData.data);
+      setError(null);
+      
+      // Try to fetch featured designers with timeout
+      try {
+        const designersController = new AbortController();
+        const designersTimeoutId = setTimeout(() => designersController.abort(), 5000);
+        
+        const designersResponse = await fetch('/api/public/featured-designers', {
+          signal: designersController.signal
+        });
+        clearTimeout(designersTimeoutId);
+        
+        if (designersResponse.ok) {
+          const designersData = await designersResponse.json();
+          if (designersData.success) {
+            setFeaturedDesigners(designersData.data);
+          } else {
+            setFeaturedDesigners(fallbackDesigners);
+          }
+        } else {
+          setFeaturedDesigners(fallbackDesigners);
+        }
+      } catch (err) {
+        console.log('Featured designers API not available, using fallback data');
+        setFeaturedDesigners(fallbackDesigners);
       }
 
-      // Fetch featured suppliers
-      const suppliersResponse = await fetch('/api/public/featured-suppliers');
-      const suppliersData = await suppliersResponse.json();
-      if (suppliersData.success) {
-        setFeaturedSuppliers(suppliersData.data);
+      // Try to fetch featured suppliers with timeout
+      try {
+        const suppliersController = new AbortController();
+        const suppliersTimeoutId = setTimeout(() => suppliersController.abort(), 5000);
+        
+        const suppliersResponse = await fetch('/api/public/featured-suppliers', {
+          signal: suppliersController.signal
+        });
+        clearTimeout(suppliersTimeoutId);
+        
+        if (suppliersResponse.ok) {
+          const suppliersData = await suppliersResponse.json();
+          if (suppliersData.success) {
+            setFeaturedSuppliers(suppliersData.data);
+          } else {
+            setFeaturedSuppliers(fallbackSuppliers);
+          }
+        } else {
+          setFeaturedSuppliers(fallbackSuppliers);
+        }
+      } catch (err) {
+        console.log('Featured suppliers API not available, using fallback data');
+        setFeaturedSuppliers(fallbackSuppliers);
       }
     } catch (error) {
       console.error('Failed to fetch featured content:', error);
+      setError('Unable to load some content. Using offline data.');
+      // Use fallback data as last resort
+      setFeaturedDesigners(fallbackDesigners);
+      setFeaturedSuppliers(fallbackSuppliers);
     } finally {
       setLoading(false);
     }
@@ -124,9 +169,37 @@ export default function LandingPage() {
     }
   };
 
+  if (loading) {
+    return (
+      <>
+        <MobileNavbar title="WID Uganda" user={user} />
+        <LoadingSpinner fullScreen text="Loading WID Uganda..." />
+      </>
+    );
+  }
+
   return (
-    <>
+    <ErrorBoundary>
       <MobileNavbar title="WID Uganda" user={user} />
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-purple-600 text-white px-4 py-2 rounded-lg z-50">
+        Skip to main content
+      </a>
+      
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mx-4 mt-4" role="alert">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <svg className="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="ml-3">
+              <p className="text-sm font-medium">{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
+      
       <style jsx>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
@@ -173,7 +246,7 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* Header */}
+      {/* Desktop Header - Hidden on Mobile/Tablet */}
       <header style={{ 
         background: 'linear-gradient(135deg, #2d4016, #556b2f)', 
         padding: '20px 5%', 
@@ -182,8 +255,8 @@ export default function LandingPage() {
         alignItems: 'center', 
         position: 'relative', 
         zIndex: 100,
-        boxShadow: '0 4px 20px rgba(45, 64, 22, 0.3)' 
-      }}>
+        boxShadow: '0 4px 20px rgba(45, 64, 22, 0.3)'
+      }} className="hidden xl:flex">
         <Link href="/landing" style={{ 
           fontSize: '32px', 
           fontWeight: 'bold', 
@@ -203,7 +276,7 @@ export default function LandingPage() {
           W<div style={{ width: '10px', height: '10px', background: '#90ee90', borderRadius: '50%', boxShadow: '0 0 8px rgba(144, 238, 144, 0.6)' }}></div>men in Design
         </Link>
 
-        <nav style={{ display: 'flex', gap: '35px', alignItems: 'center' }}>
+        <nav style={{ display: 'flex', gap: '35px', alignItems: 'center' }} className="hidden xl:flex" role="navigation" aria-label="Main navigation">
           <Link href="/landing" style={{ color: 'white', textDecoration: 'none', fontSize: '15px', position: 'relative' }}>
             Home
             <div style={{ content: '', position: 'absolute', bottom: '-5px', left: 0, width: '100%', height: '2px', background: '#90ee90', boxShadow: '0 2px 4px rgba(144, 238, 144, 0.4)' }}></div>
@@ -253,7 +326,7 @@ export default function LandingPage() {
           )}
         </nav>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '25px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '25px' }} className="hidden xl:flex">
           <div style={{ color: 'white', display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{ 
               width: '45px', 
@@ -273,7 +346,7 @@ export default function LandingPage() {
             </div>
           </div>
           {isAuthenticated ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }} className="hidden xl:flex">
               <span style={{ color: 'white', fontSize: '14px' }}>
                 Welcome, {user?.firstName || 'User'}
               </span>
@@ -304,7 +377,7 @@ export default function LandingPage() {
               </button>
             </div>
           ) : (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }} className="hidden xl:flex">
               <Link href="/auth/login">
                 <button style={{ 
                   background: 'rgba(255, 255, 255, 0.1)', 
@@ -346,11 +419,11 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section style={{ 
         background: 'linear-gradient(135deg, #2d4016 0%, #556b2f 50%, #708238 100%)', 
-        padding: '100px 5% 150px', 
+        padding: '60px 5% 100px', 
         position: 'relative', 
         overflow: 'hidden', 
-        minHeight: '600px' 
-      }}>
+        minHeight: 'calc(100vh - 120px)'
+      }} className="xl:pt-24">
         <div style={{ 
           position: 'absolute', 
           top: 0, 
@@ -372,8 +445,8 @@ export default function LandingPage() {
           background: `linear-gradient(rgba(45, 64, 22, 0.7), rgba(112, 130, 56, 0.7)), url("/images/1000579811.jpg")`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          opacity: 0.8 
-        }}></div>
+          opacity: 0.8
+        }} className="hidden md:block"></div>
 
         <div style={{ 
           maxWidth: '1200px', 
@@ -421,17 +494,21 @@ export default function LandingPage() {
                 fontSize: '14px', 
                 textTransform: 'capitalize',
                 boxShadow: '0 6px 20px rgba(144, 238, 144, 0.4)' 
-              }}>
+              }} aria-label="Join Women in Design platform - Sign up now">
                 Join Women in Design
-                <ArrowRight size={16} />
+                <ArrowRight size={16} aria-hidden="true" />
               </button>
             </Link>
           </div>
           
           <div style={{ position: 'relative' }}>
-            <img 
+            <Image 
               src="/images/WOMEN.jpeg"
               alt="Women in Design Uganda - Empowering women designers across Uganda"
+              width={600}
+              height={400}
+              priority
+              className="next-image"
               style={{
                 width: '100%',
                 height: '400px',
@@ -651,9 +728,12 @@ export default function LandingPage() {
           </div>
           
           <div style={{ position: 'relative' }}>
-            <img 
+            <Image 
               src="/images/1000579811.jpg"
               alt="Professional women designers at work - Interior Design Workspace"
+              width={600}
+              height={400}
+              className="next-image"
               style={{ 
                 width: '100%', 
                 height: '400px',
@@ -698,7 +778,7 @@ export default function LandingPage() {
 
       {/* Women in Design Gallery Section */}
       <section style={{ padding: '100px 5%', background: 'white' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
           <div style={{ textAlign: 'center', marginBottom: '60px' }}>
             <span style={{ 
               background: 'linear-gradient(135deg, #90ee90, #7bcf7b)', 
@@ -736,9 +816,12 @@ export default function LandingPage() {
               overflow: 'hidden',
               boxShadow: '0 15px 40px rgba(0,0,0,0.1)'
             }}>
-              <img 
+              <Image 
                 src="/images/WOMEN.jpeg"
                 alt="Women in Design Uganda - Empowering creative women across Uganda"
+                width={800}
+                height={400}
+                className="next-image"
                 style={{
                   width: '100%',
                   height: '400px',
@@ -770,9 +853,12 @@ export default function LandingPage() {
               overflow: 'hidden',
               boxShadow: '0 10px 30px rgba(0,0,0,0.1)'
             }}>
-              <img 
+              <Image 
                 src="/images/1000579811.jpg"
                 alt="Professional women designers at work - Creative workspace"
+                width={400}
+                height={300}
+                className="next-image"
                 style={{
                   width: '100%',
                   height: '300px',
@@ -806,9 +892,12 @@ export default function LandingPage() {
               overflow: 'hidden',
               boxShadow: '0 10px 30px rgba(0,0,0,0.1)'
             }}>
-              <img 
+              <Image 
                 src="/images/1000579832.jpg"
                 alt="Interior design services by talented women designers"
+                width={400}
+                height={300}
+                className="next-image"
                 style={{
                   width: '100%',
                   height: '300px',
@@ -925,7 +1014,7 @@ export default function LandingPage() {
           <div style={{ width: '15px', height: '15px', borderRadius: '50%', background: '#2d4016' }}></div>
         </div>
 
-        <div style={{ textAlign: 'center', marginBottom: '80px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '80px', padding: '0 20px' }}>
           <span style={{ 
             background: 'linear-gradient(135deg, #90ee90, #7bcf7b)', 
             color: 'white', 
@@ -977,9 +1066,12 @@ export default function LandingPage() {
               e.currentTarget.style.boxShadow = '0 5px 25px rgba(144, 238, 144, 0.15), 0 2px 10px rgba(85, 107, 47, 0.1)';
             }}
           >
-            <img 
+            <Image 
               src="/images/1000579832.jpg"
               alt="Women in Design - Beautiful Interior Design Services"
+              width={400}
+              height={280}
+              className="next-image"
               style={{ 
                 width: '100%', 
                 height: '280px',
@@ -1047,9 +1139,12 @@ export default function LandingPage() {
               e.currentTarget.style.boxShadow = '0 5px 25px rgba(144, 238, 144, 0.15), 0 2px 10px rgba(85, 107, 47, 0.1)';
             }}
           >
-            <img 
+            <Image 
               src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
               alt="Modern Architecture Design"
+              width={400}
+              height={280}
+              className="next-image"
               style={{ 
                 width: '100%', 
                 height: '280px',
@@ -1117,9 +1212,12 @@ export default function LandingPage() {
               e.currentTarget.style.boxShadow = '0 5px 25px rgba(144, 238, 144, 0.15), 0 2px 10px rgba(85, 107, 47, 0.1)';
             }}
           >
-            <img 
+            <Image 
               src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
               alt="Design Materials & Supplies"
+              width={400}
+              height={280}
+              className="next-image"
               style={{ 
                 width: '100%', 
                 height: '280px',
@@ -1213,7 +1311,7 @@ export default function LandingPage() {
 
       {/* Testimonials Section */}
       <section style={{ padding: '100px 5%', background: 'linear-gradient(135deg, #f5f5dc, #e8e8e8)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
           <div style={{ textAlign: 'center', marginBottom: '60px' }}>
             <span style={{ 
               background: 'linear-gradient(135deg, #90ee90, #7bcf7b)', 
@@ -1250,9 +1348,12 @@ export default function LandingPage() {
               boxShadow: '0 5px 25px rgba(0,0,0,0.08)',
               textAlign: 'center'
             }}>
-              <img 
+              <Image 
                 src="https://images.unsplash.com/photo-1494790108755-2616b612b47c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
                 alt="Sarah Nakato"
+                width={80}
+                height={80}
+                className="next-image"
                 style={{
                   width: '80px',
                   height: '80px',
@@ -1288,9 +1389,12 @@ export default function LandingPage() {
               boxShadow: '0 5px 25px rgba(0,0,0,0.08)',
               textAlign: 'center'
             }}>
-              <img 
+              <Image 
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
                 alt="James Okello"
+                width={80}
+                height={80}
+                className="next-image"
                 style={{
                   width: '80px',
                   height: '80px',
@@ -1326,9 +1430,12 @@ export default function LandingPage() {
               boxShadow: '0 5px 25px rgba(0,0,0,0.08)',
               textAlign: 'center'
             }}>
-              <img 
+              <Image 
                 src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
                 alt="Grace Mukasa"
+                width={80}
+                height={80}
+                className="next-image"
                 style={{
                   width: '80px',
                   height: '80px',
@@ -1416,7 +1523,7 @@ export default function LandingPage() {
         padding: '60px 5% 40px', 
         color: 'white' 
       }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
           <div style={{ 
             display: 'grid', 
             gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
@@ -1639,7 +1746,7 @@ export default function LandingPage() {
           animation: 'float 7s ease-in-out infinite',
           zIndex: 1
         }}></div>
-      </div>
-    </>
+      </main>
+    </ErrorBoundary>
   );
 }

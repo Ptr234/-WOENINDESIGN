@@ -1,4 +1,13 @@
 /* Mobile-first responsive design for WID Uganda Platform */
+/* Enhanced with safe area support and modern mobile optimizations */
+
+/* Safe area support for modern phones */
+:root {
+  --safe-area-inset-top: env(safe-area-inset-top);
+  --safe-area-inset-right: env(safe-area-inset-right);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  --safe-area-inset-left: env(safe-area-inset-left);
+}
 
 /* Base mobile styles (320px and up) */
 .container {
@@ -14,6 +23,9 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
 }
 
 /* Touch-friendly button sizes */
@@ -24,6 +36,12 @@ body {
   font-size: 16px; /* Prevents zoom on iOS */
   border-radius: 8px;
   touch-action: manipulation; /* Improves touch responsiveness */
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:active, button:active {
+  transform: scale(0.98);
 }
 
 /* Form inputs optimization */
@@ -35,16 +53,34 @@ input, textarea, select {
   width: 100%;
 }
 
-/* Mobile navigation spacing */
+/* Mobile navigation spacing with safe area support */
 .mobile-nav {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 64px;
+  height: calc(64px + var(--safe-area-inset-bottom));
   background: white;
   border-top: 1px solid #e5e7eb;
   z-index: 50;
+  padding-bottom: var(--safe-area-inset-bottom);
+}
+
+/* Safe area utilities */
+.safe-area-pt {
+  padding-top: var(--safe-area-inset-top);
+}
+
+.safe-area-pb {
+  padding-bottom: var(--safe-area-inset-bottom);
+}
+
+.safe-area-pl {
+  padding-left: var(--safe-area-inset-left);
+}
+
+.safe-area-pr {
+  padding-right: var(--safe-area-inset-right);
 }
 
 .mobile-nav-item {
@@ -72,11 +108,45 @@ input, textarea, select {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Image responsiveness */
+/* Image responsiveness and optimization */
 img {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
+}
+
+/* Next.js Image component optimizations */
+.next-image {
+  border-radius: 8px;
+}
+
+/* Lazy loading placeholder */
+.image-placeholder {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Small tablets: 640px to 768px */
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+    padding: 0 20px;
+  }
+  
+  .grid-mobile {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
 }
 
 /* Tablet: 768px to 1024px */
@@ -91,13 +161,16 @@ img {
     gap: 24px;
   }
   
-  .mobile-nav {
-    display: none; /* Hide mobile nav on tablet+ */
-  }
-  
   .card {
     padding: 24px;
     margin: 16px 0;
+  }
+}
+
+/* Large tablets: 1024px and up */
+@media (min-width: 1024px) {
+  .mobile-nav {
+    display: none; /* Hide mobile nav on desktop */
   }
 }
 
@@ -195,6 +268,11 @@ img {
 
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+  
   .mobile-nav {
     background: #1f2937;
     border-top-color: #374151;
@@ -204,12 +282,46 @@ img {
     background: #1f2937;
     color: #f9fafb;
   }
+  
+  .skeleton {
+    background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
+  }
 }
 
 /* Performance optimizations */
 .gpu-accelerated {
   transform: translateZ(0);
   will-change: transform;
+}
+
+/* Smooth scrolling optimization */
+.smooth-scroll {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Optimized shadows for mobile */
+.mobile-shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+@media (min-width: 768px) {
+  .mobile-shadow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+}
+
+/* Loading states */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+/* Touch feedback */
+.touch-feedback:active {
+  transform: scale(0.98);
+  opacity: 0.8;
 }
 
 /* Battery saving mode */
@@ -223,4 +335,18 @@ img {
   animation-duration: 0.01ms !important;
   animation-iteration-count: 1 !important;
   transition-duration: 0.01ms !important;
+}
+
+/* Focus improvements for accessibility */
+.focus-visible {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
+}
+
+/* High DPI screen optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .crisp-edges {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
 }
