@@ -153,7 +153,7 @@ export default function LandingPage() {
           <span><strong>Opening Hours:</strong> Mon-Fri 8am-6pm - Closed on Weekends</span>
         </div>
         <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-          <span><strong>Location:</strong> Kampala, Uganda ➤</span>
+          <span><strong>Location:</strong> Kampala, Uganda ➤ DEPLOYED-v2.1</span>
           <span style={{ 
             background: 'linear-gradient(135deg, #556b2f, #2d4016)', 
             color: 'white', 
